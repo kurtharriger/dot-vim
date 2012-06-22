@@ -1,7 +1,42 @@
-" bvargo's vimrc, based on the following:
+" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
+call pathogen#runtime_append_all_bundles()
+
+filetype off " On some Linux systems, this is necessary to make sure pathogen
+             " picks up ftdetect directories in plugins! :(
+syntax on
+filetype plugin indent on
+
+" ------------
+
+let vimfiles=$HOME . "/.vim"
+
+" Settings for VimClojure
+let vimclojureRoot = vimfiles."/bundle/vimclojure"
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = vimclojureRoot."/lib/ng"
+
+" Start vimclojure nailgun server (uses screen.vim to manage lifetime)
+nmap <silent> <Leader>sc :execute "ScreenShell lein vimclojure" <cr>
+" Start a generic Clojure repl (uses screen.vim)
+nmap <silent> <Leader>sC :execute "ScreenShell lein repl" <cr>
+
+" ------------
+let g:ScreenImpl = 'Tmux'
+
+set clipboard=unnamed
+set tabstop=4
+set shiftwidth=4
+set expandtab" bvargo's vimrc, based on the following:
+
+" --------------------
+"
 " - the sample vimrc that comes with vim
 " - the vimrc at http://www.stripey.com/vim/vimrc.html
-
+ 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
