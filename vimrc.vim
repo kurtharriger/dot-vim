@@ -1,37 +1,4 @@
-" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
-call pathogen#runtime_append_all_bundles()
-
-filetype off " On some Linux systems, this is necessary to make sure pathogen
-             " picks up ftdetect directories in plugins! :(
-syntax on
-filetype plugin indent on
-
-" ------------
-
-let vimfiles=$HOME . "/.vim"
-
-" Settings for VimClojure
-let vimclojureRoot = vimfiles."/bundle/vimclojure"
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = vimclojureRoot."/lib/ng"
-
-" Start vimclojure nailgun server (uses screen.vim to manage lifetime)
-nmap <silent> <Leader>sc :execute "ScreenShell lein vimclojure" <cr>
-" Start a generic Clojure repl (uses screen.vim)
-nmap <silent> <Leader>sC :execute "ScreenShell lein repl" <cr>
-
-" ------------
-let g:ScreenImpl = 'Tmux'
-
-set clipboard=unnamed
-set tabstop=4
-set shiftwidth=4
-set expandtab" bvargo's vimrc, based on the following:
-
+" bvargo's vimrc, based on the following:
 " --------------------
 "
 " - the sample vimrc that comes with vim
@@ -272,7 +239,7 @@ if v:version >= 703
    "set relativenumber
 
    " Display a colored bar at column 81
-   set colorcolumn=81
+"   set colorcolumn=81
 endif
 
 " Always keep 2 lines on the top and bottom of the screen
@@ -645,3 +612,30 @@ function! MapHTMLKeys(...)
 
 endfunction " MapHTMLKeys()
 
+" -------------------------------
+
+let vimfiles=$HOME . "/.vim"
+
+" Settings for VimClojure
+let vimclojureRoot = vimfiles."/bundle/vimclojure"
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = vimclojureRoot."/lib/ng"
+
+" Start vimclojure nailgun server (uses screen.vim to manage lifetime)
+nmap <silent> <Leader>sc :execute "ScreenShell lein vimclojure" <cr>
+" Start a generic Clojure repl (uses screen.vim)
+nmap <silent> <Leader>sC :execute "ScreenShell lein repl" <cr>
+
+" ------------
+let g:ScreenImpl = 'Tmux'
+
+set clipboard=unnamed
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+call pathogen#infect()
