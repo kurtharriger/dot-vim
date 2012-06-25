@@ -644,3 +644,14 @@ call pathogen#infect()
 
 colorscheme jellybeans
 
+" map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
+
+" Fugitive 
+autocmd BufReadPost fugitive://* set bufhidden=delete
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+autocmd QuickFixCmdPost *grep* cwindow
+
+
