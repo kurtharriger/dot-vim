@@ -658,3 +658,6 @@ nnoremap \/ :let @/=""
 nnoremap \: :<C-r>"            
 
 map <F3> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map \wt :TlistToggle
+map \wn :NERDTree
+map \wf :NERDTreeFind
