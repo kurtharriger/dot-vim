@@ -452,7 +452,7 @@ set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/sys
 "set tags+=~/.vim/tags/boost_ublas
 " build tags of your own project with CTRL+l
-map <C-l> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" map <C-l> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -534,7 +534,7 @@ set backspace=eol,start,indent
 " Keystrokes - Make and Quickfix
 
 " F3 runs make
-nmap <F3> :make<CR>
+" nmap <F3> :make<CR>
 
 " with unimpaired.vim, [q = cprev, ]q = cnext, [Q = cfirst, ]Q = clast
 
@@ -639,19 +639,22 @@ set shiftwidth=4
 set expandtab
 set number
 
-" plugins 
+" load plugin bundles
 call pathogen#infect()
 
 colorscheme jellybeans
-
-" map <C-h> <C-w>h
-" map <C-j> <C-w>j
-" map <C-k> <C-w>k
-" map <C-l> <C-w>l
 
 " Fugitive 
 autocmd BufReadPost fugitive://* set bufhidden=delete
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 autocmd QuickFixCmdPost *grep* cwindow
 
+" highlighting
+hi clear SpellBad
+hi SpellBad cterm=underline
 
+set hlsearch
+nnoremap \/ :let @/=""
+nnoremap \: :<C-r>"            
+
+map <F3> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
