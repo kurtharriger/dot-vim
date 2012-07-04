@@ -1,3 +1,8 @@
+source bundles.vim
+
+"
+"
+"
 " bvargo's vimrc, based on the following:
 " --------------------
 "
@@ -638,9 +643,6 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set number
-
-" load plugin bundles
-call pathogen#infect()
 
 silent! colorscheme jellybeans
 
