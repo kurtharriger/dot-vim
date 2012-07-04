@@ -642,7 +642,7 @@ set number
 " load plugin bundles
 call pathogen#infect()
 
-colorscheme jellybeans
+silent! colorscheme jellybeans
 
 " Fugitive 
 autocmd BufReadPost fugitive://* set bufhidden=delete

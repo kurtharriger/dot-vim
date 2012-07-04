@@ -1,1 +1,0 @@
-../plugin_src/vim-fugitive/plugin/fugitive.vim
