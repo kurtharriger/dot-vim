@@ -1,4 +1,4 @@
-source bundles.vim
+runtime bundles.vim
 
 "
 "

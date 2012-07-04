@@ -5,21 +5,23 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle "MarcWeber/vim-addon-mw-utils"
+" :'<,'>!sort -fi -t/ -k2
+Bundle "FuzzyFinder"
+Bundle "L9"
+Bundle "Screen-vim---gnu-screentmux"
 Bundle "corntrace/bufexplorer"
-Bundle "ervandew/supertab"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/snipmate-snippets"
-Bundle "int3/vim-taglist-plus"
+Bundle "sjl/gundo.vim"
 Bundle "nanotech/jellybeans.vim"
 Bundle "scrooloose/nerdtree"
-Bundle "sjl/gundo.vim"
+Bundle "honza/snipmate-snippets"
+Bundle "ervandew/supertab"
 Bundle "tomtom/tlib_vim"
-Bundle "tpope/vim-fugitive"
-Bundle "tpope/vim-unimpaired"
-Bundle "vim-scripts/L9"
-Bundle "vim-scripts/Screen-vim---gnu-screentmux"
+Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "rson/vim-conque"
+Bundle "tpope/vim-fugitive"
+Bundle "garbas/vim-snipmate"
+Bundle "int3/vim-taglist-plus"
+Bundle "tpope/vim-unimpaired"
 Bundle "vim-scripts/VimClojure"
 
 filetype plugin indent on 
