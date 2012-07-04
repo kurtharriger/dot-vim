@@ -654,10 +654,106 @@ hi clear SpellBad
 hi SpellBad cterm=underline
 
 set hlsearch
-nnoremap \/ :let @/=""
-nnoremap \: :<C-r>"            
+nnoremap \/ :let @/=""<CR>
+nnoremap \: yy:<C-r>"            
 
-map <F3> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-map \wt :TlistToggle
-map \wn :NERDTree
-map \wf :NERDTreeFind
+map \gt :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map \tt :TlistToggle<CR>
+map \tn :NERDTree<CR>
+map \tf :NERDTreeFind<CR>
+
+" Active Buffers
+function! ListActive()
+    let result = ""
+    silent! redir => result
+    silent! exe "ls"
+    redir END
+    let active = ""
+    for i in split(result, "\n")
+      if matchstr(i, '\m[0-9][0-9]* .a.. ') != ""
+        let active .= "\n".i
+      endif
+    endfor
+    echo active
+endfunction
+
+function! CloseUnloadedBuffers()
+    let lastBuffer = bufnr('$')
+
+    let currentBuffer = 1
+    while currentBuffer <= lastBuffer
+        " If buffer exists, is shown in :ls output, and isn't loaded
+        if bufexists(currentBuffer) && buflisted(currentBuffer) && bufloaded(currentBuffer) == 0
+            execute 'bdelete' currentBuffer
+        endif
+
+        let currentBuffer = currentBuffer + 1
+    endwhile
+endfunction
+
+"here is a more exotic version of my original Kwbd script
+"delete the buffer; keep windows; create a scratch buffer if no buffers left
+function! s:Kwbd(kwbdStage)
+  if(a:kwbdStage == 1)
+    if(!buflisted(winbufnr(0)))
+      bd!
+      return
+    endif
+    let s:kwbdBufNum = bufnr("%")
+    let s:kwbdWinNum = winnr()
+    windo call s:Kwbd(2)
+    execute s:kwbdWinNum . 'wincmd w'
+    let s:buflistedLeft = 0
+    let s:bufFinalJump = 0
+    let l:nBufs = bufnr("$")
+    let l:i = 1
+    while(l:i <= l:nBufs)
+      if(l:i != s:kwbdBufNum)
+        if(buflisted(l:i))
+          let s:buflistedLeft = s:buflistedLeft + 1
+        else
+          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
+            let s:bufFinalJump = l:i
+          endif
+        endif
+      endif
+      let l:i = l:i + 1
+    endwhile
+    if(!s:buflistedLeft)
+      if(s:bufFinalJump)
+        windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
+      else
+        enew
+        let l:newBuf = bufnr("%")
+        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+      endif
+      execute s:kwbdWinNum . 'wincmd w'
+    endif
+    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
+      execute "bd! " . s:kwbdBufNum
+    endif
+    if(!s:buflistedLeft)
+      set buflisted
+      set bufhidden=delete
+      set buftype=
+      setlocal noswapfile
+    endif
+  else
+    if(bufnr("%") == s:kwbdBufNum)
+      let prevbufvar = bufnr("#")
+      if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
+        b #
+      else
+        bn
+      endif
+    endif
+  endif
+endfunction
+
+command! Kwbd call s:Kwbd(1)
+nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
+
+" Create a mapping (e.g. in your .vimrc) like this:
+nmap <C-W>! <Plug>Kwbd
+
+autocmd BufEnter * lcd %:p:h
