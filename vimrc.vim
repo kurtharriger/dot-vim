@@ -628,7 +628,7 @@ let vimclojure#HighlightContrib=1
 let vimclojure#DynamicHighlighting=1
 let vimclojure#ParenRainbow=1
 let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = vimclojureRoot."/lib/ng"
+let vimclojure#NailgunClient = "bundle/VimClojure-NailGun/ng"
 
 " Start vimclojure nailgun server (uses screen.vim to manage lifetime)
 nmap <silent> <Leader>sc :execute "ScreenShell lein vimclojure" <cr>
